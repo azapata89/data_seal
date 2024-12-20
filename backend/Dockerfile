@@ -1,18 +1,23 @@
-# Usa la imagen oficial de Node.js
-FROM node:16
+# Usa una imagen base de Node.js
+FROM node:18
 
-# Crea y usa el directorio de la aplicación
+# Establece el directorio de trabajo
 WORKDIR /app
 
-# Copia los archivos necesarios
+# Copia los archivos de configuración
 COPY package*.json ./
-COPY server.js ./
 
 # Instala las dependencias
 RUN npm install
 
-# Expone el puerto 3000
+# Copia el resto del código
+COPY . .
+
+# Instala nodemon globalmente
+RUN npm install -g nodemon
+
+# Expone el puerto del backend
 EXPOSE 3000
 
-# Inicia la aplicación
-CMD ["node", "server.js"]
+# Comando para iniciar el servidor con nodemon
+CMD ["npm", "start"]

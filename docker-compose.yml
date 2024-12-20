@@ -3,7 +3,7 @@ services:
   frontend:
     build: ./frontend
     ports:
-      - "8080:5173" # Mapea el puerto interno 5173 al puerto 8080 en el host
+      - "8080:5173"
     networks:
       - app-network
 
@@ -11,6 +11,9 @@ services:
     build: ./backend
     ports:
       - "3000:3000"
+    volumes:
+      - ./backend:/app # Mapea la carpeta del backend
+      - /app/node_modules # Evita conflictos con node_modules
     networks:
       - app-network
 
